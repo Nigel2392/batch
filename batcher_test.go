@@ -147,6 +147,24 @@ func TestCancelFuture(t *testing.T) {
 	}
 }
 
+func TestDispatcher(t *testing.T) {
+	var b = batch.NewDispatcher[int, uint32, uint32]()
+	for i := 0; i < 10; i++ {
+		// var batchh = b.Get(i, 10)
+		for j := 0; j < 10; j++ {
+			// batchh.Add(ret1, 1)
+			b.Add(i, ret1, 1)
+		}
+		// b.AddBatch(i, batchh)
+	}
+
+	var result, _ = b.Run(1, 1, 5)
+	var r = sumUint32(result.Wait()...)
+	if r != 10 {
+		t.Errorf("result is not correct: %d, expected: %d", r, 10)
+	}
+}
+
 type benchmark struct {
 	workers int
 	buffer  int

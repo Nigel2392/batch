@@ -94,6 +94,10 @@ type batchRunner[ARG, RET any] struct {
 	mu     *sync.Mutex
 }
 
+func (b *batchRunner[ARG, RET]) String() string {
+	return fmt.Sprintf("BatchRunner{funcs: %d}", len(b.funcs))
+}
+
 // Create a new batch runner.
 //
 // This batch runner can be used to execute multiple tasks at once.
