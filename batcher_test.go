@@ -175,9 +175,7 @@ type benchmarksTyp []benchmark
 
 func (b benchmarksTyp) String() string {
 	var bld strings.Builder
-
 	bld.WriteString("Benchmarking:\n")
-
 	for _, v := range b {
 		bld.WriteString(fmt.Sprintf("%d-%d-%d\n", v.workers, v.buffer, v.funcs))
 	}
@@ -234,6 +232,11 @@ func sumUint32(i ...uint32) uint32 {
 	}
 	return sum
 }
+
+// cmd: go test -benchmem -run=^$ -bench ^BenchmarkBatch$ github.com/Nigel2392/batch -v
+// cmd: go test -benchmem -memprofile memprofile.out -cpuprofile profile.out -run=^$ -bench ^BenchmarkBatch$ github.com/Nigel2392/batch
+// cmd: go tool pprof memprofile.out -http="127.0.0.1:3000" -web="memprofile.out"
+// pprof> web
 
 func BenchmarkBatch(b *testing.B) {
 
